@@ -1,0 +1,75 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Initialize Advent of Code for current year",
+            "type": "shell",
+            "command": "./init_aoc.sh",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Initialize Puzzle for today",
+            "type": "shell",
+            "command": "./init_puzzle.sh",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Initialize Advent of Code",
+            "type": "shell",
+            "command": "./init_aoc.sh ${input:year}",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Initialize Puzzle",
+            "type": "shell",
+            "command": "./init_puzzle.sh ${input:year} ${input:day}",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "year",
+            "description": "Please enter a year (default: current year)",
+        },
+        {
+            "type": "promptString",
+            "id": "day",
+            "description": "Please enter a day (default: current day of month)",
+        }
+    ]
+}
