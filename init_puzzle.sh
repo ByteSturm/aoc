@@ -4,9 +4,9 @@ current_day=$(date +"%d")
 year=${1:-${current_year}}
 day=$(printf "%02d" ${2:-${current_day}})
 
-echo "puzzleInput=None" > "${year}/${day}/puzzle_input.py"
+echo "puzzleInput=None" > "${year}/${day}/puzzle_${year}${day}_input.py"
 
-cat <<EOT > "${year}/${day}/puzzle_test.py"
+cat <<EOT > "${year}/${day}/puzzle_${year}${day}_test.py"
 import pytest
 from puzzle import do_puzzle_part1, do_puzzle_part2
 from puzzle_input import puzzleInput
@@ -26,7 +26,7 @@ def test_do_puzzle_part2(input, output):
     assert do_puzzle_part2(input) == output
 EOT
 
-cat << EOT > "${year}/${day}/puzzle.py"
+cat << EOT > "${year}/${day}/puzzle_${year}${day}.py"
 from puzzle_input import puzzleInput
 
 def do_puzzle_part1(input):
