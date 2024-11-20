@@ -1,4 +1,4 @@
-from puzzle_input import puzzleInput
+from puzzle_201501_input import puzzleInput
 
 
 def getFloor(input: str) -> int:

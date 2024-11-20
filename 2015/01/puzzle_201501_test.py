@@ -1,6 +1,6 @@
 import pytest
-from puzzle import getFloor, whenFirstTimeInBasement
-from puzzle_input import puzzleInput
+from puzzle_201501 import getFloor, whenFirstTimeInBasement
+from puzzle_201501_input import puzzleInput
 
 
 @pytest.mark.parametrize(
