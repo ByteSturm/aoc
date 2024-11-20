@@ -4,7 +4,26 @@ current_day=$(date +"%d")
 year=${1:-${current_year}}
 day=$(printf "%02d" ${2:-${current_day}})
 
-touch "${year}/${day}/puzzle_1.py"
-touch "${year}/${day}/puzzle_1_test.py"
-touch "${year}/${day}/puzzle_2.py"
-touch "${year}/${day}/puzzle_2_test.py"
+echo "puzzleInput=None" > "${year}/${day}/puzzle_input.py"
+
+cat <<EOT > "${year}/${day}/puzzle_test.py"
+import pytest
+from puzzle import do_puzzle_part1, do_puzzle_part2
+from puzzle_input import puzzleInput
+
+@pytest.mark.parametrize("input, output", [
+    ("dummy-input",0)
+    # (puzzleInput, puzzleResultPart1),
+])
+def test_do_puzzle_part1(input, output):
+    assert do_puzzle_part1(input) == output
+
+@pytest.mark.parametrize("input, output", [
+    ("dummy-input",0)
+    # (puzzleInput, puzzleResultPart2),
+])
+def test_do_puzzle_part2(input, output):
+    assert do_puzzle_part2(input) == output
+EOT
+
+touch "${year}/${day}/puzzle.py"
