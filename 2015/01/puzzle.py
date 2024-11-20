@@ -1,10 +1,12 @@
 from puzzle_input import puzzleInput
 
+
 def getFloor(input: str) -> int:
     floor = 0
     for char in input:
         floor = move(char, floor)
     return floor
+
 
 def move(char: str, floor: int) -> int:
     if char == "(":
@@ -12,6 +14,7 @@ def move(char: str, floor: int) -> int:
     elif char == ")":
         floor -= 1
     return floor
+
 
 def whenFirstTimeInBasement(input: str) -> int:
     floor = 0
@@ -22,6 +25,7 @@ def whenFirstTimeInBasement(input: str) -> int:
         step += 1
         reachedBasement = floor == -1
     return step
+
 
 print(getFloor(puzzleInput))
 print(whenFirstTimeInBasement(puzzleInput))
