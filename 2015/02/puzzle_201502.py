@@ -8,11 +8,13 @@ def calculateTotalNeededWrappingPaper(input: list[str]):
     )
 
 
-def do_puzzle_part2(input):
-    return None
+def calculateTotalRibbonNeeded(input: list[str]):
+    return reduce(
+        lambda previous, input: previous + getNeededRibbonForBox(input), input, 0
+    )
 
 
-def getNeededWrappingPaperForBox(input) -> int:
+def getNeededWrappingPaperForBox(input: str) -> int:
     dimensions = extractDimensionsAsInt(input)
     surfaceOfSmallestSide = getSurfaceOfSmallestSide(*dimensions)
     surfaceOfBox = calculateSurfaceOfBox(*dimensions)
@@ -31,5 +33,20 @@ def calculateSurfaceOfBox(length: int, width: int, height: int) -> int:
     return 2 * length * width + 2 * width * height + 2 * height * length
 
 
+def getNeededRibbonForBox(input: str) -> int:
+    dimensions = extractDimensionsAsInt(input)
+    ribbonToWrapAround = getSmallestPerimeter(*dimensions)
+    ribbonForBow = calculateRibbonNeededForBow(*dimensions)
+    return ribbonToWrapAround + ribbonForBow
+
+
+def getSmallestPerimeter(length: int, width: int, height: int) -> int:
+    return min(2 * (length + width), 2 * (width + height), 2 * (height + length))
+
+
+def calculateRibbonNeededForBow(length: int, width: int, height: int) -> int:
+    return length * width * height
+
+
 print(calculateTotalNeededWrappingPaper(puzzleInput))
-print(do_puzzle_part2(puzzleInput))
+print(calculateTotalRibbonNeeded(puzzleInput))

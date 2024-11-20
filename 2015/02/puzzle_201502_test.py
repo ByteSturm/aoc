@@ -1,5 +1,5 @@
 import pytest
-from puzzle_201502 import calculateTotalNeededWrappingPaper, do_puzzle_part2
+from puzzle_201502 import calculateTotalNeededWrappingPaper, calculateTotalRibbonNeeded
 from puzzle_201502_input import puzzleInput
 
 
@@ -18,9 +18,10 @@ def test_calculateTotalNeededWrappingPaper(input, output):
 @pytest.mark.parametrize(
     "input, output",
     [
-        ("dummy-input", 0),
-        (puzzleInput, None),
+        (["2x3x4"], 34),
+        (["1x1x10"], 14),
+        (puzzleInput, 3812909),
     ],
 )
 def test_do_puzzle_part2(input, output):
-    assert do_puzzle_part2(input) == output
+    assert calculateTotalRibbonNeeded(input) == output
