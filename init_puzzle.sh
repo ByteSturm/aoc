@@ -26,4 +26,15 @@ def test_do_puzzle_part2(input, output):
     assert do_puzzle_part2(input) == output
 EOT
 
-touch "${year}/${day}/puzzle.py"
+cat << EOT > "${year}/${day}/puzzle.py"
+from puzzle_input import puzzleInput
+
+def do_puzzle_part1(input):
+    return None
+
+def do_puzzle_part2(input):
+    return None
+
+print(do_puzzle_part1(puzzleInput))
+print(do_puzzle_part2(puzzleInput))
+EOT
