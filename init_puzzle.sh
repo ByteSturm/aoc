@@ -12,15 +12,15 @@ from puzzle import do_puzzle_part1, do_puzzle_part2
 from puzzle_input import puzzleInput
 
 @pytest.mark.parametrize("input, output", [
-    ("dummy-input",0)
-    # (puzzleInput, puzzleResultPart1),
+    ("dummy-input",0),
+    (puzzleInput, None)
 ])
 def test_do_puzzle_part1(input, output):
     assert do_puzzle_part1(input) == output
 
 @pytest.mark.parametrize("input, output", [
-    ("dummy-input",0)
-    # (puzzleInput, puzzleResultPart2),
+    ("dummy-input",0),
+    (puzzleInput, None)
 ])
 def test_do_puzzle_part2(input, output):
     assert do_puzzle_part2(input) == output
