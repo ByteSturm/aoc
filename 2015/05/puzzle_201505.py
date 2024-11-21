@@ -18,7 +18,7 @@ def countNiceStrings(input: list[str], stringChecker: Callable[[str], bool]) -> 
 
 def isStringNiceV2(input: str) -> bool:
     containsDuplicateOfTwoCharacters = re.search(r"([a-z]{2}).*\1", input) is not None
-    repetitionWithOneInBetween = re.search(r"([a-z])(?!\1)[a-z]\1", input) is not None
+    repetitionWithOneInBetween = re.search(r"([a-z])[a-z]\1", input) is not None
     return containsDuplicateOfTwoCharacters and repetitionWithOneInBetween
 
 
