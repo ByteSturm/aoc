@@ -2,28 +2,40 @@ from puzzle_201503_input import puzzleInput
 
 
 def countHousesWithAtLeastOneVisit(input: str):
-    x = y = 0
-    visitedHouses: set[str] = {coordinates(x, y)}
+    coordinates = (0, 0)
+    visitedHouses: set[tuple[int, int]] = {coordinates}
     for char in input:
-        if char == "^":
-            y += 1
-        elif char == ">":
-            x += 1
-        elif char == "v":
-            y -= 1
-        elif char == "<":
-            x -= 1
-        visitedHouses.add(coordinates(x, y))
+        coordinates = move(coordinates, char)
+        visitedHouses.add(coordinates)
     return len(visitedHouses)
 
 
-def coordinates(x: int, y: int) -> str:
-    return f"{x},{y}"
+def move(coordinates: tuple[int, int], moveAction: chr) -> tuple[int, int]:
+    x, y = coordinates
+    if moveAction == "^":
+        y += 1
+    elif moveAction == ">":
+        x += 1
+    elif moveAction == "v":
+        y -= 1
+    elif moveAction == "<":
+        x -= 1
+    return (x, y)
 
 
-def do_puzzle_part2(input):
-    return None
+def countHousesWithAtLeastOneVisitRoboVersion(input: str):
+    santa = (0, 0)
+    roboSanta = (0, 0)
+    visitedHouses: set[tuple[int, int]] = {santa}
+    for index, char in enumerate(input):
+        if index % 2 == 0:
+            santa = move(santa, char)
+            visitedHouses.add(santa)
+        else:
+            roboSanta = move(roboSanta, char)
+            visitedHouses.add(roboSanta)
+    return len(visitedHouses)
 
 
 print(countHousesWithAtLeastOneVisit(puzzleInput))
-print(do_puzzle_part2(puzzleInput))
+print(countHousesWithAtLeastOneVisitRoboVersion(puzzleInput))
