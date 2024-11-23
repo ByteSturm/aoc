@@ -24,7 +24,7 @@ def setupGrid(input: list[str], grid: list[list[bool]]):
         command = parseInput(commandInput)
         executeCommand(grid, command)
     flattenedGrid = [cell for row in grid for cell in row]
-    return flattenedGrid.count(True)
+    return flattenedGrid.count(1)
 
 
 def do_puzzle_part2(input):
@@ -47,13 +47,13 @@ def executeCommand(grid: list[list[bool]], command: ParsedInput) -> None:
     for x in range(command.startX, command.endX + 1, 1):
         for y in range(command.startY, command.endY + 1, 1):
             if command.mode == Mode.ON:
-                grid[x][y] = True
+                grid[x][y] = 1
             elif command.mode == Mode.OFF:
-                grid[x][y] = False
+                grid[x][y] = -1
             elif command.mode == Mode.TOGGLE:
-                grid[x][y] = not grid[x][y]
+                grid[x][y] = -grid[x][y]
 
 
 if __name__ == "__main__":
-    print(setupGrid(puzzleInput, [[False] * 1000 for _ in range(1000)]))
+    print(setupGrid(puzzleInput, [[-1] * 1000 for _ in range(1000)]))
     print(do_puzzle_part2(puzzleInput))
