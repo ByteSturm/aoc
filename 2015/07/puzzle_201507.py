@@ -56,6 +56,7 @@ class Gate:
     def output(self) -> int:
         if self.result is not None:
             return self.result
+
         if isinstance(self.input1, Wire):
             value1 = self.input1.signal()
         else:
@@ -64,6 +65,7 @@ class Gate:
             value2 = self.input2.signal()
         else:
             value2 = self.input2
+
         if self.operation == Operation.AND:
             self.result = value1 & value2
         elif self.operation == Operation.OR:
@@ -76,6 +78,7 @@ class Gate:
             self.result = value1 << value2
         else:
             self.result = value1
+
         return self.result
 
     def __eq__(self, value: object) -> bool:
@@ -114,69 +117,56 @@ class Circuit:
             + outputRegex,
             input,
         )
+
         operationEnum = None
         if captureGroups.groupdict()["operation"] is not None:
             operationEnum = Operation[captureGroups.groupdict()["operation"]]
-        parsedLine = ParsedInput(
+
+        return ParsedInput(
             captureGroups.groupdict()["output"],
             captureGroups.groupdict()["input1"],
             operationEnum,
             captureGroups.groupdict()["input2"],
         )
-        return parsedLine
 
     def createCircuit(input: list[str]) -> Self:
         instance = Circuit()
         for line in input:
             parsedLine = Circuit.parseLine(line)
-            outputWire = instance.circuit.setdefault(
-                parsedLine.outputName, Wire(parsedLine.outputName)
-            )
-            if parsedLine.operationName is None:
-                try:
-                    outputWire.input = int(parsedLine.inputNameOrValue1)
-                except ValueError:
-                    outputWire.input = instance.circuit.setdefault(
-                        parsedLine.inputNameOrValue1, Wire(parsedLine.inputNameOrValue1)
-                    )
-            else:
+            outputWire = instance.setWire(parsedLine.outputName)
+
+            if parsedLine.operationName is not None:
                 outputWire.input = instance.connectNewGate(parsedLine)
+            elif parsedLine.inputNameOrValue1.isdigit():
+                outputWire.input = int(parsedLine.inputNameOrValue1)
+            else:
+                outputWire.input = instance.setWire(parsedLine.inputNameOrValue1)
+
             instance.circuit[parsedLine.outputName] = outputWire
         return instance
 
+    def setWire(self, name: str) -> Wire:
+        return self.circuit.setdefault(name, Wire(name))
+
     def connectNewGate(self, parsedLine: ParsedInput) -> Gate:
         newGate: Gate = None
-        if parsedLine.operationName == Operation.NOT:
-            inputWire = self.circuit.setdefault(
-                parsedLine.inputNameOrValue2, Wire(parsedLine.inputNameOrValue2)
-            )
-            newGate = Gate(parsedLine.operationName, inputWire)
-        elif (
-            parsedLine.operationName == Operation.AND
-            or parsedLine.operationName == Operation.OR
-        ):
+
+        if parsedLine.inputNameOrValue1 is not None:
             if parsedLine.inputNameOrValue1.isdigit():
                 input1 = int(parsedLine.inputNameOrValue1)
             else:
-                input1 = self.circuit.setdefault(
-                    parsedLine.inputNameOrValue1, Wire(parsedLine.inputNameOrValue1)
-                )
+                input1 = self.setWire(parsedLine.inputNameOrValue1)
+        if parsedLine.inputNameOrValue2 is not None:
             if parsedLine.inputNameOrValue2.isdigit():
                 input2 = int(parsedLine.inputNameOrValue2)
             else:
-                input2 = self.circuit.setdefault(
-                    parsedLine.inputNameOrValue2, Wire(parsedLine.inputNameOrValue2)
-                )
+                input2 = self.setWire(parsedLine.inputNameOrValue2)
+
+        if parsedLine.operationName == Operation.NOT:
+            newGate = Gate(parsedLine.operationName, input2)
+        else:
             newGate = Gate(parsedLine.operationName, input1, input2)
-        elif (
-            parsedLine.operationName == Operation.RSHIFT
-            or parsedLine.operationName == Operation.LSHIFT
-        ):
-            inputWire1 = self.circuit.setdefault(
-                parsedLine.inputNameOrValue1, Wire(parsedLine.inputNameOrValue1)
-            )
-            inputWire2 = int(parsedLine.inputNameOrValue2)
-            newGate = Gate(parsedLine.operationName, inputWire1, inputWire2)
+
         return newGate
 
     def executeCircuit(self) -> dict[str, int]:
@@ -184,10 +174,6 @@ class Circuit:
         for wire in self.circuit.values():
             result[wire.identifier] = wire.signal()
         return result
-
-
-def do_puzzle_part2(input):
-    return None
 
 
 if __name__ == "__main__":
