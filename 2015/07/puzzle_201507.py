@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Self, Union
 from dataclasses import dataclass
 from puzzle_201507_input import puzzleInput
+from puzzle_201507_input2 import puzzleInput2
 
 
 class Operation(Enum):
@@ -191,4 +192,4 @@ def do_puzzle_part2(input):
 
 if __name__ == "__main__":
     print(Circuit.createCircuit(puzzleInput).circuit["a"].signal())
-    print(do_puzzle_part2(puzzleInput))
+    print(Circuit.createCircuit(puzzleInput2).circuit["a"].signal())

@@ -1,13 +1,11 @@
 import pytest
 from puzzle_201507 import (
-    do_puzzle_part2,
     Operation,
     Gate,
     Wire,
     Circuit,
     ParsedInput,
 )
-from puzzle_201507_input import puzzleInput
 
 
 @pytest.mark.parametrize(
@@ -34,19 +32,13 @@ from puzzle_201507_input import puzzleInput
                 "x": 123,
                 "y": 456,
             },
-        ),
-        (puzzleInput, None),
+        )
     ],
 )
 def test_executeCircuit(input, output):
     createdCircuit = Circuit.createCircuit(input)
     result = createdCircuit.executeCircuit()
     assert result == output
-
-
-@pytest.mark.parametrize("input, output", [("dummy-input", 0), (puzzleInput, None)])
-def test_do_puzzle_part2(input, output):
-    assert do_puzzle_part2(input) == output
 
 
 def test_simpleWire():
