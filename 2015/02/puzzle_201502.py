@@ -48,5 +48,6 @@ def calculateRibbonNeededForBow(length: int, width: int, height: int) -> int:
     return length * width * height
 
 
-print(calculateTotalNeededWrappingPaper(puzzleInput))
-print(calculateTotalRibbonNeeded(puzzleInput))
+if __name__ == "__main__":
+    print(calculateTotalNeededWrappingPaper(puzzleInput))
+    print(calculateTotalRibbonNeeded(puzzleInput))

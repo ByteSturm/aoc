@@ -27,5 +27,6 @@ def whenFirstTimeInBasement(input: str) -> int:
     return step
 
 
-print(getFloor(puzzleInput))
-print(whenFirstTimeInBasement(puzzleInput))
+if __name__ == "__main__":
+    print(getFloor(puzzleInput))
+    print(whenFirstTimeInBasement(puzzleInput))

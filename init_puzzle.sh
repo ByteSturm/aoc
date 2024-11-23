@@ -35,6 +35,7 @@ def do_puzzle_part1(input):
 def do_puzzle_part2(input):
     return None
 
-print(do_puzzle_part1(puzzleInput))
-print(do_puzzle_part2(puzzleInput))
+if __name__ == "__main__":
+    print(do_puzzle_part1(puzzleInput))
+    print(do_puzzle_part2(puzzleInput))
 EOT

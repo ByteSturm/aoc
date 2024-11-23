@@ -37,5 +37,6 @@ def countHousesWithAtLeastOneVisitRoboVersion(input: str):
     return len(visitedHouses)
 
 
-print(countHousesWithAtLeastOneVisit(puzzleInput))
-print(countHousesWithAtLeastOneVisitRoboVersion(puzzleInput))
+if __name__ == "__main__":
+    print(countHousesWithAtLeastOneVisit(puzzleInput))
+    print(countHousesWithAtLeastOneVisitRoboVersion(puzzleInput))

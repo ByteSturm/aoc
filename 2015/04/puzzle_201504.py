@@ -20,5 +20,6 @@ def getLowestNumberForHashStartingWith(input: str, startCriteria: str):
     return idx
 
 
-print(getLowestNumberForHashWithFiveZeroes(puzzleInput))
-print(getLowestNumberForHashWithSixZeroes(puzzleInput))
+if __name__ == "__main__":
+    print(getLowestNumberForHashWithFiveZeroes(puzzleInput))
+    print(getLowestNumberForHashWithSixZeroes(puzzleInput))

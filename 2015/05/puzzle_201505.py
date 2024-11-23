@@ -22,5 +22,6 @@ def isStringNiceV2(input: str) -> bool:
     return containsDuplicateOfTwoCharacters and repetitionWithOneInBetween
 
 
-print(countNiceStrings(puzzleInput, isStringNice))
-print(countNiceStrings(puzzleInput, isStringNiceV2))
+if __name__ == "__main__":
+    print(countNiceStrings(puzzleInput, isStringNice))
+    print(countNiceStrings(puzzleInput, isStringNiceV2))
