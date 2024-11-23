@@ -1,7 +1,7 @@
 import pytest
 from puzzle_201506 import (
     setupGrid,
-    do_puzzle_part2,
+    setupGridv2,
     parseInput,
     ParsedInput,
     Mode,
@@ -49,9 +49,16 @@ def test_setupGrid(input, grid, output):
     assert setupGrid(input, grid) == output
 
 
-@pytest.mark.parametrize("input, output", [("dummy-input", 0), (puzzleInput, None)])
-def test_do_puzzle_part2(input, output):
-    assert do_puzzle_part2(input) == output
+@pytest.mark.parametrize(
+    "input, grid, output",
+    [
+        (["turn on 0,0 through 0,0"], [[0] * 1000 for _ in range(1000)], 1),
+        (["toggle 0,0 through 999,999"], [[0] * 1000 for _ in range(1000)], 2000000),
+        (puzzleInput, [[0] * 1000 for _ in range(1000)], 14110788),
+    ],
+)
+def test_setupGridv2(input, grid, output):
+    assert setupGridv2(input, grid) == output
 
 
 @pytest.mark.parametrize(
