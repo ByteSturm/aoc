@@ -6,7 +6,7 @@ def do_puzzle_part1(input: list[str]):
     codeLength = 0
     stringLength = 0
     for string in input:
-        lengths = calculateLengths(string)
+        lengths = calculateLengthsByCounting(string)
         codeLength += lengths["code"]
         stringLength += lengths["string"]
     return codeLength - stringLength
@@ -16,7 +16,7 @@ def do_puzzle_part2(input):
     codeLength = 0
     encodedLength = 0
     for string in input:
-        lengths = calculateLengthOfencodedString(string)
+        lengths = calculateLengthOfencodedStringByCounting(string)
         codeLength += lengths["code"]
         encodedLength += lengths["encoded"]
     return encodedLength - codeLength
@@ -52,6 +52,33 @@ def calculateLengthOfencodedString(input: str):
     replacedBackslashes = replacedDoubleQuotes.replace("\\", "\\\\")
     wrappedInQuotes = '"' + replacedBackslashes + '"'
     encodedLength = len(wrappedInQuotes)
+    return {"code": codeLength, "encoded": encodedLength}
+
+
+def calculateLengthsByCounting(input: str):
+    codeLength = len(input)
+    idx = 0
+    stringLength = -2
+    while idx < codeLength:
+        stringLength += 1
+        step = 1
+        if input[idx] == "\\":
+            if input[idx + 1] == "\\" or input[idx + 1] == '"':
+                step = 2
+            elif input[idx + 1] == "x":
+                step = 4
+        idx += step
+    return {"code": codeLength, "string": stringLength}
+
+
+def calculateLengthOfencodedStringByCounting(input: str):
+    codeLength = len(input)
+    encodedLength = 2
+    for char in input:
+        if char == "\\" or char == '"':
+            encodedLength += 2
+        else:
+            encodedLength += 1
     return {"code": codeLength, "encoded": encodedLength}
 
 

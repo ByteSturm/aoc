@@ -3,7 +3,9 @@ from puzzle_201508 import (
     do_puzzle_part1,
     do_puzzle_part2,
     calculateLengths,
+    calculateLengthsByCounting,
     calculateLengthOfencodedString,
+    calculateLengthOfencodedStringByCounting,
 )
 from puzzle_201508_input import puzzleInput
 
@@ -22,6 +24,7 @@ from puzzle_201508_input import puzzleInput
 )
 def test_calculateLengths(input, output):
     assert calculateLengths(input) == output
+    assert calculateLengthsByCounting(input) == output
 
 
 def test_do_puzzle_part1():
@@ -42,8 +45,8 @@ def test_do_puzzle_part1():
 )
 def test_calculateLengthOfencodedStrings(input, output):
     assert calculateLengthOfencodedString(input) == output
+    assert calculateLengthOfencodedStringByCounting(input) == output
 
 
-@pytest.mark.parametrize("input, output", [("dummy-input", 0), (puzzleInput, None)])
-def test_do_puzzle_part2(input, output):
-    assert do_puzzle_part2(input) == output
+def test_do_puzzle_part2():
+    assert do_puzzle_part2(puzzleInput) == 2117
