@@ -13,7 +13,13 @@ def do_puzzle_part1(input: list[str]):
 
 
 def do_puzzle_part2(input):
-    return None
+    codeLength = 0
+    encodedLength = 0
+    for string in input:
+        lengths = calculateLengthOfencodedString(string)
+        codeLength += lengths["code"]
+        encodedLength += lengths["encoded"]
+    return encodedLength - codeLength
 
 
 def decodeAsciiChars(match: re.Match[str]):
@@ -38,6 +44,15 @@ def calculateLengths(input: str):
     reducedSlashes = noSingleBackslashes.replace("\\\\", "\\")
     stringLength = len(reducedSlashes)
     return {"code": codeLength, "string": stringLength}
+
+
+def calculateLengthOfencodedString(input: str):
+    codeLength = len(input)
+    replacedDoubleQuotes = input.replace('"', '""')
+    replacedBackslashes = replacedDoubleQuotes.replace("\\", "\\\\")
+    wrappedInQuotes = '"' + replacedBackslashes + '"'
+    encodedLength = len(wrappedInQuotes)
+    return {"code": codeLength, "encoded": encodedLength}
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ from puzzle_201508 import (
     do_puzzle_part1,
     do_puzzle_part2,
     calculateLengths,
-    calculateLengths,
+    calculateLengthOfencodedString,
 )
 from puzzle_201508_input import puzzleInput
 
@@ -26,6 +26,22 @@ def test_calculateLengths(input, output):
 
 def test_do_puzzle_part1():
     assert do_puzzle_part1(puzzleInput) == 1371
+
+
+@pytest.mark.parametrize(
+    "input, output",
+    [
+        (r'""', {"code": 2, "encoded": 6}),
+        (r'"abc"', {"code": 5, "encoded": 9}),
+        (r'"aaa\"aaa"', {"code": 10, "encoded": 16}),
+        (r'"\x27"', {"code": 6, "encoded": 11}),
+        (r'"\\"', {"code": 4, "encoded": 10}),
+        (r'"\xa8br\x8bjr\""', {"code": 16, "encoded": 24}),
+        (r'"bvm\x28aa\\\\\"pywuhaniox\\z\\hbp\xd7mold"', {"code": 43, "encoded": 59}),
+    ],
+)
+def test_calculateLengthOfencodedStrings(input, output):
+    assert calculateLengthOfencodedString(input) == output
 
 
 @pytest.mark.parametrize("input, output", [("dummy-input", 0), (puzzleInput, None)])
