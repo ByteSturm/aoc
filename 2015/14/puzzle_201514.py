@@ -12,6 +12,7 @@ class Reindeer:
     state: str
     timeRemainingInState: int
     distance: int
+    score: int
 
     def __init__(
         self,
@@ -25,6 +26,7 @@ class Reindeer:
         self.flyDurationInSeconds = flyDurationInSeconds
         self.restDurationInSeconds = restDurationInSeconds
         self.distance = 0
+        self.score = 0
         self.state = "flying"
         self.timeRemainingInState = flyDurationInSeconds
 
@@ -62,8 +64,18 @@ def firstRace(input: list[str], duration: int) -> Reindeer:
     return max(reindeers, key=attrgetter("distance"))
 
 
-def do_puzzle_part2(input):
-    return None
+def secondRace(input: list[str], duration: int) -> Reindeer:
+    reindeers = parseInput(input)
+    for _ in range(duration):
+        for reindeer in reindeers:
+            reindeer.run()
+        highestDistance = max(reindeers, key=attrgetter("distance")).distance
+        reindeersWithHighestDistance = [
+            reindeer for reindeer in reindeers if reindeer.distance == highestDistance
+        ]
+        for reindeer in reindeersWithHighestDistance:
+            reindeer.score += 1
+    return max(reindeers, key=attrgetter("score"))
 
 
 def parseInput(input: list[str]) -> list[Reindeer]:
@@ -85,4 +97,4 @@ def parseInput(input: list[str]) -> list[Reindeer]:
 
 if __name__ == "__main__":
     print(firstRace(puzzleInput, 2503).distance)
-    print(do_puzzle_part2(puzzleInput))
+    print(secondRace(puzzleInput, 2503).score)

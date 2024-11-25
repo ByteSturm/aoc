@@ -1,5 +1,5 @@
 import pytest
-from puzzle_201514 import firstRace, do_puzzle_part2, parseInput, Reindeer
+from puzzle_201514 import firstRace, secondRace, parseInput, Reindeer
 from puzzle_201514_input import puzzleInput
 
 
@@ -65,3 +65,42 @@ def test_firstRace(input, duration, winnerName, winnerDistance):
     winner = firstRace(input, duration)
     assert winner.name == winnerName
     assert winner.distance == winnerDistance
+
+
+@pytest.mark.parametrize(
+    "input, duration, winnerName, winnerScore",
+    [
+        (
+            [
+                "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.",
+                "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.",
+            ],
+            1,
+            "Dancer",
+            1,
+        ),
+        (
+            [
+                "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.",
+                "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.",
+            ],
+            140,
+            "Dancer",
+            139,
+        ),
+        (
+            [
+                "Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.",
+                "Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.",
+            ],
+            1000,
+            "Dancer",
+            689,
+        ),
+        (puzzleInput, 2503, "Vixen", 1059),
+    ],
+)
+def test_secondRace(input, duration, winnerName, winnerScore):
+    winner = secondRace(input, duration)
+    assert winner.name == winnerName
+    assert winner.score == winnerScore
